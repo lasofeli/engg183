@@ -4,6 +4,9 @@
 #include <DHT.h>
 #include "BluetoothSerial.h"
 
+// Pinout used:
+// https://mischianti.org/esp32-devkitc-v4-high-resolution-pinout-and-specs/
+
 // === Enums for Organized Pin Mapping ===
 enum sensorPins {
   DHT_PIN = 32,
@@ -11,9 +14,9 @@ enum sensorPins {
 };
 
 enum buttonPins {
-  BUTTON_1 = 14,
-  BUTTON_2 = 27,
-  BUTTON_3 = 26
+  BUTTON_1 = 27,
+  BUTTON_2 = 26,
+  BUTTON_3 = 25
 };
 
 enum ledPins {
@@ -70,16 +73,20 @@ void setup() {
   pinMode(LIGHT_2, OUTPUT);
   pinMode(LIGHT_3, OUTPUT);
 
-  pinMode(BUTTON_1, INPUT_PULLUP);
-  pinMode(BUTTON_2, INPUT_PULLUP);
-  pinMode(BUTTON_3, INPUT_PULLUP);
+  pinMode(BUTTON_1, INPUT_PULLDOWN);
+  pinMode(BUTTON_2, INPUT_PULLDOWN);
+  pinMode(BUTTON_3, INPUT_PULLDOWN);
 }
 
 void loop() {
+  // Serial.println("Led1state: " + String(led1State));
+  // Serial.println("Led2state: " + String(led2State));
+  // Serial.println("Led3state: " + String(led3State));
+  
   // --- Physical Button Control ---
-  if (!digitalRead(BUTTON_1)) { led1State = !led1State; delay(250); }
-  if (!digitalRead(BUTTON_2)) { led2State = !led2State; delay(250); }
-  if (!digitalRead(BUTTON_3)) { led3State = !led3State; delay(250); }
+  if (digitalRead(BUTTON_1)) { led1State = !led1State; delay(250); }
+  if (digitalRead(BUTTON_2)) { led2State = !led2State; delay(250); }
+  if (digitalRead(BUTTON_3)) { led3State = !led3State; delay(250); }
 
   digitalWrite(LIGHT_1, led1State);
   digitalWrite(LIGHT_2, led2State);
@@ -118,7 +125,7 @@ void loop() {
   SerialBT.print(",LIGHT=");
   SerialBT.println(ldrValue);
 
-  delay(1000);
+  delay(100);
 }
 
 // --- CSV Parsing Function ---
@@ -141,3 +148,4 @@ void parseBluetoothData(String data) {
   digitalWrite(LIGHT_2, led2State);
   digitalWrite(LIGHT_3, led3State);
 }
+
