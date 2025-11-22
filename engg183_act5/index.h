@@ -5,7 +5,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Dashboard</title>
+    <title>Activity 5</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -93,7 +93,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
         });
       });
       setInterval(function() { getData(); }
-      , 2000);
+      , 500);
 
       function getData()
       {

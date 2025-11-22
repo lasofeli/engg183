@@ -48,8 +48,8 @@ bool led1State = false;
 bool led2State = false;
 bool led3State = false;
 
-const char* ssid = "Magis";
-const char* password = "18luxindomino59";
+const char* ssid = "Warde Wifi";
+const char* password = "Wardewifi7!";
 
 WebServer server(80);
 
@@ -71,6 +71,7 @@ void handleSensors()
   xmlString += "  <light>"       + String(lightReading) + "</light>\n";
   xmlString += "</sensors>\n";
 
+  Serial.println(xmlString);
   server.send(200, "text/xml", xmlString);
 }
 
